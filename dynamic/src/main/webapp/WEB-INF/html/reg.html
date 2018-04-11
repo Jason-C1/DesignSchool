@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="header contain">
+        <a class="brand" href="index">
+            <div class="brand-rad">Design</div>
+            <div class="brand-gray">School</div>
+        </a>
+    </div>
+    <div class="nav-wrap">
+        <div class="nav contain">
+            <a class="fl" href="index">首页</a>
+            <a class="fl" href="cour">热门课程</a>
+            <a class="fl" href="teac">教师信息</a>
+            <a class="fl" href="rank">学习排名</a>
+            <a class="fr active" href="reg">注册</a>
+            <a class="fr" href="login">登陆</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="contain">
+
+            <div class="title">
+                <div class="text">注册</div>
+                <div class="block "></div>
+                <div class="Strip "></div>
+            </div>
+            <div class="panel-body">
+                <div class="form-wrapper">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="username">输入用户名</label>
+                            <input class="form-control" type="text" name="username" placeholder="请输入用户名" />
+                        </div>
+                        <div class="form-group">
+                            <label for="number">输入学号/工号</label>
+                            <input class="form-control" type="text" name="number" placeholder="输入学号/工号" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">输入密码</label>
+                            <input class="form-control" type="password" name="password" placeholder="输入密码" />
+                        </div>
+                        <div class="form-group">
+                            <label for="repassword">确认密码</label>
+                            <input class="form-control" type="password" name="repassword" placeholder="确认密码" />
+                        </div>
+                        <button class="btn btn-red btn-block ">入伙</button>
+                    </form>
+                </div>
+                <div class="panel-code">
+                    <img class="code" src="img/code.png ">
+                    <div class="code-text">扫描二维码不能注册
+                        <br> 但能加我
+                        <i class="fa fa-qq"></i>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="footer">DesignSchool©2018 Powered by Jason
+        <br>
+        <a href="https://github.com/jason-c1"><i class="fa fa-github"></i>github.com/Jason-C1</a>
+    </div>
+    <script>
+        $('.carousel').carousel({
+            interval: 5000
+        })
+		var loginVue = new Vue({
+			el:"#login",
+			data:{
+				username:"",
+				password:"",
+			},
+			methods:{
+				login:function(){
+					var data = {
+						username : this.username,
+						password : this.password,
+					};
+					$.ajax({
+						url : "login",
+						type : "post",
+						data : data,
+						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+						success:function(data){
+							alert(data.message);
+							if(data.message=="登陆成功"){
+								window.location.href = "index";
+							}
+						}
+					});
+				}
+			}			
+		});
+    </script>
+</body>
+
+</html>

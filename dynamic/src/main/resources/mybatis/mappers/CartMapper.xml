@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tarena.xz.mapper.CartMapper">
+	
+	<!-- 根据插入购物车 -->
+	<insert id="addCart" parameterType="string">
+	 	insert into xz_Cart(uId,gId,count) 
+	 	values(#{uId}, #{gId}, #{count})
+	</insert>
+	<update id="upateCart" parameterType="string">
+	 	update xz_Cart set count=#{count} where uId=#{uId} and gId=#{gId}
+	</update>
+	<!-- 根据id查询商品信息 -->
+	<select id="getCartItem" parameterType="string" resultType="cn.tarena.xz.pojo.Cart">
+	 	select * from xz_Cart where gId=#{gId} and uId=#{uId}
+	</select>
+	<delete id="delCartByGId" parameterType="string">
+	 	delete from xz_Cart where gId=#{gId} and uId=#{uId}
+	</delete>
+	<select id="getAllCart" parameterType="string" resultType="cn.tarena.xz.pojo.ShowCart">
+		SELECT
+			xz_cart.cId,
+			xz_cart.uId,
+			xz_goods.gId,
+			xz_goods.title,
+			xz_goods.details,
+			xz_goods.pic,
+			xz_goods.price,
+			xz_cart.count
+		FROM
+			xz_goods ,
+			xz_cart
+		WHERE
+			xz_goods.gId = xz_cart.gId 
+		AND
+			xz_cart.uId = #{uId}
+	</select>
+	<select id="getCartByUId_Num" resultType="cn.tarena.xz.pojo.ShowCart">
+		SELECT
+			xz_cart.cId,
+			xz_cart.uId,
+			xz_goods.gId,
+			xz_goods.title,
+			xz_goods.details,
+			xz_goods.pic,
+			xz_goods.price,
+			xz_cart.count
+		FROM
+			xz_goods,
+			xz_cart
+		WHERE
+			xz_goods.gId = xz_cart.gId 
+		AND
+			xz_cart.uId = #{uId}
+		LIMIT #{cur, jdbcType=INTEGER}, #{num, jdbcType=INTEGER}
+	</select>
+	<select id="getCartItemFull" parameterType="string" resultType="cn.tarena.xz.pojo.ShowCart">
+		SELECT
+			xz_cart.cId,
+			xz_cart.uId,
+			xz_goods.gId,
+			xz_goods.title,
+			xz_goods.details,
+			xz_goods.pic,
+			xz_goods.price,
+			xz_cart.count
+		FROM
+			xz_goods ,
+			xz_cart
+		WHERE
+			xz_goods.gId = xz_cart.gId 
+		AND
+			xz_cart.uId = #{uId}
+		AND
+			xz_cart.gId = #{gId}
+	</select>
+	<select id="getCartNum" parameterType="string" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			xz_cart
+		WHERE
+			xz_cart.uId = #{uId}
+	</select>
+</mapper>
