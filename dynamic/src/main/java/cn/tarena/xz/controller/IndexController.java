@@ -14,33 +14,42 @@ import cn.tarena.xz.service.UserService;
 
 @Controller
 public class IndexController {
-	@RequestMapping("/")
+	@RequestMapping(value = "/")
 	public String toDefault() {
 		return "index";
 	}
-	@RequestMapping("/index")
+	@RequestMapping(value = "/index")
 	public String index() {
-	
 		return "index";
 	}
-	@RequestMapping("/cour")
+	
+	@RequestMapping(value = "/cour")
 	public String cour() {
 		return "cour";
 	}
-	@RequestMapping("/teac")
+	@RequestMapping(value = "/teac")
 	public String teac() {
 		return "teac";
 	}
-	@RequestMapping("/rank")
+	@RequestMapping(value = "/rank")
 	public String rank() {
 		return "rank";
 	}
-	@RequestMapping("/reg")
+	@RequestMapping(value = "/reg")
 	public String reg() {
 		return "reg";
 	}
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login")
 	public String login() {
 		return "login";
+	}
+	@RequestMapping(value = "/mine")
+	public String mine() {
+		return "mine";
+	}
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.setAttribute("uId",null);
+		return "index";
 	}
 }

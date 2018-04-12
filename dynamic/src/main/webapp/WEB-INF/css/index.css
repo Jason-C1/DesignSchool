@@ -22,6 +22,9 @@ a{
 a:hover {
     text-decoration: none;
 }
+.fr span{
+	vertical-align: middle;
+}
 .fa {
     display: inline;
 }
@@ -40,6 +43,7 @@ a:hover {
 .fr {
     float: right;
 }
+
 
 .contain:before,
 .contain:after,
@@ -87,10 +91,10 @@ a:hover {
     width: 120px;
     margin: 0 10px;
 }
-.nav .fr{
-    width: 50px;
+.nav .fr {
+    width: auto;
+    padding: 0 10px;
 }
-
 
 .nav a.active,
 .nav a:hover {
@@ -99,8 +103,11 @@ a:hover {
 
 .row {
     margin: 20px 10px;
+    
 }
-
+.table tbody{
+	min-height: 1000px;
+}
 .banner {
     display: inline-block;
     width: 600px;
@@ -209,4 +216,41 @@ a:hover {
     background-color: rgb(200, 1, 1);
     border-color: #a00;
 }
+.rank:nth-of-type(1){
+    color: rgb(250, 0, 0);
+    font-weight:800;
+    font-size:21px;
+}
+.rank:nth-of-type(2){
+    color: rgb(150, 50, 50);
+     font-weight:600;
+     font-size:18px;
+}
+.rank:nth-of-type(3){
+    color: rgb(100, 50, 50);
+    font-weight:600;
+    font-size:16px;
+}
+.table{
+	vertical-align: middle;
+}
 
+.headpic-u{
+	width:60px;
+	height:60px;
+}
+.headpic-t{
+	width:100px;
+	height:100px;
+}
+.table>tbody>tr>td{
+	vertical-align: middle;
+}
+
+.table-info>tbody>tr>td{
+	text-align: center;
+}
+.table-info>tbody>tr>th{
+	text-align: center;
+	vertical-align: middle;
+}

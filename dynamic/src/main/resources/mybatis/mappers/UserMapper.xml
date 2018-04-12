@@ -3,13 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tarena.xz.mapper.UserMapper">
-	
-	<!-- 根据用户名和密码查询数据 -->
-	<select id="findUserByUP" parameterType="string" resultType="cn.tarena.xz.pojo.User">
-		select * from xz_user where username=#{username} and pwd=#{pwd}
+	<select id="findUserByUP"
+	 parameterType="string" 
+	 resultType="cn.tarena.xz.pojo.User">
+	SELECT uId, uName, uPwd, uPic FROM sc_user 
+	WHERE uName=#{username} and uPwd=#{pwd}
 	</select>
-	<!-- 根据插入注册数据 -->
-	<insert id="signup" parameterType="string">
-	 	insert into xz_user(name,username,pwd,gender,age,phone) values(#{name}, #{username}, #{pwd}, #{gender}, #{age}, #{phone})
-	</insert>
+	<select id="findCourseById"
+		 parameterType="string" 
+		 resultType="cn.tarena.xz.pojo.Course">
+		SELECT sc_course.cId, cName, cNum, sc_teacher.tId, tName,sc_user_course.cCount as cCount
+		FROM sc_teacher, sc_course, sc_user_course
+		WHERE uId=#{uId} 
+		and sc_course.`cId`=sc_user_course.`cId` 
+		and sc_course.`tId`=sc_teacher.`tId`
+	</select>
+	
+	
+	<select id="findUserById"
+		 parameterType="string" 
+		 resultType="cn.tarena.xz.pojo.ShowUser">
+		SELECT sc_user.uId AS uId,uName AS username,uPic AS picPath,SUM(cCount) AS cCount
+		FROM sc_user 
+				LEFT JOIN sc_user_course
+				ON  sc_user_course.uId=sc_user.uId
+		WHERE
+		sc_user.uId = #{uId}
+		GROUP BY `uId`
+		ORDER BY
+		cCount DESC
+
+	</select>	
+	
+<insert id="signup" parameterType="string">
+ 		insert into sc_user(uName,uPwd,uPic) values (
+			#{uName},
+			#{uPwd},
+			#{uPic}
+		)
+ 	</insert>
 </mapper>

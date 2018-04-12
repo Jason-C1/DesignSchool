@@ -2,59 +2,39 @@ package cn.tarena.xz.pojo;
 
 public class User {
 	private String uId;
-	private String username;
-	private String pwd;
-	private String name;
-	private Integer age;  //包装类默认值为空
-	private String gander;
-	private String phone;
-
+	private String uName;
+	private String uPwd;
+	private String uPic;
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	public String getuId() {
 		return uId;
 	}
 	public void setuId(String uId) {
 		this.uId = uId;
 	}
-	public String getUsername() {
-		return username;
+	public String getuName() {
+		return uName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setuName(String uName) {
+		this.uName = uName;
 	}
-	public String getPwd() {
-		return pwd;
+	public String getuPwd() {
+		return uPwd;
 	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setuPwd(String uPwd) {
+		this.uPwd = uPwd;
 	}
-	public String getName() {
-		return name;
+	public String getuPic() {
+		return uPic;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setuPic(String uPic) {
+		this.uPic = uPic;
 	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-	public String getGander() {
-		return gander;
-	}
-	public void setGander(String gander) {
-		this.gander = gander;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+
+	
+
 	
 }

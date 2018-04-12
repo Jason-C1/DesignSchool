@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tarena.xz.mapper.ShowMapper">
+	
+	<!-- 根据id查询商品信息 -->
+	<select id="ShowCourseAll" parameterType="string" resultType="cn.tarena.xz.pojo.Course">
+	 	select 
+	 		cId,cName,cNum,sc_teacher.tId,tName 
+		from 
+			sc_teacher,sc_course 
+		where 
+			sc_teacher.tId=sc_course.tId
+	</select>
+	<select id="ShowUserAll" parameterType="string" resultType="cn.tarena.xz.pojo.ShowUser">
+		SELECT sc_user.uId AS uId,uName AS username,uPic AS picPath,SUM(cCount) AS cCount
+		FROM sc_user 
+		LEFT JOIN sc_user_course
+		ON  sc_user_course.uId=sc_user.uId
+		GROUP BY `uId`
+		ORDER BY
+		cCount DESC
+	</select>
+ 	<select id="ShowTeacherAll"  parameterType="string" resultType="cn.tarena.xz.pojo.Teacher">
+		SELECT sc_teacher.`tId`, tName, tPic, SUM(cNum) AS cCount ,GROUP_CONCAT(cName ORDER BY cName ASC) AS classes
+		FROM sc_teacher, sc_course 
+		WHERE sc_teacher.tId=sc_course.tId GROUP BY `tId`
+		ORDER BY cCount DESC
+
+	</select>
+</mapper>

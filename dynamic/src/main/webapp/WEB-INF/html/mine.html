@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<link rel="stylesheet"
+	href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+<link
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+</head>
+<link rel="stylesheet" href="css/index.css">
+
+<body>
+	<div class="header contain">
+		<a class="brand" href="index">
+			<div class="brand-rad">Design</div>
+			<div class="brand-gray">School</div>
+		</a>
+	</div>
+	<div class="nav-wrap">
+		<div class="nav contain" id="nav">
+			<a class="fl" href="index">首页</a> <a class="fl" href="cour">热门课程</a>
+			<a class="fl" href="teac">教师信息</a> <a class="fl" href="rank">学习排名</a>
+			<a class="fr" href="reg" v-show="!logged">注册</a> <a class="fr"
+				href="login" v-show="!logged">登陆</a> <a class="fr" href="logout"
+				v-show="logged">退出登录</a> <a class="fr active" href="mine"
+				v-show="logged"> <span class="glyphicon glyphicon-user">
+			</span> {{username}}
+			</a>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="contain" id="mine">
+			<div class="title">
+				<div class="text">我的信息</div>
+				<div class="block "></div>
+				<div class="Strip "></div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-info">
+					<tr>
+						<td rowspan="2" style="width: 250px; padding: 20px;" ><img 
+							:src="items2.picPath" /></td>
+						<th>姓名</th>
+						<td>{{items2.username}}</td>
+						<td><a>修改信息</a></td>
+					</tr>
+					<tr>
+						<th>总学习量</th>
+						<td>{{items2.cCount}}</td>
+						<td><a>前往继续学习</a></td>
+					</tr>
+				</table>
+			</div>
+			<div class="title">
+				<div class="text">所选课程</div>
+				<div class="block "></div>
+				<div class="Strip "></div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>课程名称</th>
+							<th>授课教师</th>
+							<th>节数</th>
+							<th>学习量</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in items">
+							<td>{{item.cName}}</td>
+							<td>{{item.tName}}</td>
+							<td>{{item.cNum}}</td>
+							<td>{{item.cCount}}</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		DesignSchool©2018 Powered by Jason <br> <a
+			href="https://github.com/jason-c1"><i class="fa fa-github"></i>github.com/Jason-C1</a>
+	</div>
+	<script>
+        $('.carousel').carousel({
+            interval: 5000
+        })
+        
+        var navVue = new Vue({
+			el:"#nav",
+			data:{
+				logged:false,
+				username:"",
+			}
+		});
+		var mineVue = new Vue({
+            el: "#mine",
+            data: {
+                items: {},
+                items2: {},
+            },
+        });
+        
+        $.ajax({
+            url: "api/showUser",
+            type: "post",
+            data: {},
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            success: function (list) {
+            	if(list.message=="查询成功"){
+            		mineVue.items = list.data;
+            		mineVue.items2 = list.data2;
+        			navVue.logged=true;
+        			navVue.username=list.data2.username;
+            	}else{
+            		//window.location.replace("index");
+            		alert("未登录");
+            	}
+                
+            }
+        });
+		
+    </script>
+</body>
+
+</html>
